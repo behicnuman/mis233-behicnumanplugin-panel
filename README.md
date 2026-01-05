@@ -1,36 +1,29 @@
-# MIS 233 Final Project: Custom Grafana Panel Plugin
+# MIS 233 Final Project: Custom Interactive Grafana Panel
+**Developer:** Behic Numan Oruc 
 
-Developed by **Behic Numan Oruc** & **Kaan Gunal**.
+## 1. Project Overview
+This plugin is an individually developed Grafana panel designed to display developer identity and live query data with interactive UI elements. It fulfills all mandatory requirements for the MIS 233 course and incorporates multiple bonus features.
 
-## 🚀 Project Overview
-This project is a custom-built Grafana Panel Plugin developed for the **MIS 233 (Management Information Systems)** course. Unlike standard Grafana panels, this plugin includes specific features designed to enhance user interaction and data awareness, demonstrating the core principles of information systems management.
+## 2. Implemented Features
 
----
+### Mandatory Requirements
+* **Successful Build & Load:** The plugin builds without errors and loads correctly.
+* **Student Identity:** Displays "Developed by Behic Numan Oruc" clearly in the UI.
 
-## ✨ Implemented Bonus Features
+### Bonus Features
+* **Dynamic Panel Configuration:**
+    * **Developer Name Color:** A custom Color Picker to change the name's color.
+    * **Circle Opacity Slider:** A slider to adjust transparency.
+* **Simple Interactivity:**
+    * **Click Action:** The circle changes color when clicked.
+    * **Hover Effects:** Smooth scaling and brightness effects.
+* **Real Data Rendering:**
+    * **Live Query Integration:** Displays real-time values from Grafana data sources.
+    * **Series Counter:** Dynamic counter with adjustable font sizes (Small, Medium, Large).
 
-We have extended the basic plugin template with several advanced features to fulfill the "Bonus" requirements:
+## 3. Technical Setup
+1. Build: `npm run build`
+2. Run: `docker-compose up -d`
+3. Access: `http://localhost:3000` (admin/admin)
 
-### 1. Advanced Panel Options (Config Toggle)
-- **Feature:** Added a dynamic "Show Series Counter" switch in the panel editor.
-- **Utility:** Allows users to toggle the visibility of technical metadata (series count) on the fly without editing code. This demonstrates the MIS principle of *user-centric customization*.
-
-### 2. Data Awareness (Dynamic Indicators)
-- **Feature:** The panel automatically detects the number of data series coming from the data source.
-- **Functionality:** It displays the "Series Count" in real-time. This is crucial for dashboard users to verify if all expected data streams are being visualized.
-
-### 3. Dynamic UI Sizing (Radio Buttons)
-- **Feature:** Integrated a size selector (Small, Medium, Large) for the series counter.
-- **Technical Detail:** Implemented using React state and Grafana's UI components, allowing the interface to adapt to the user's aesthetic preferences.
-
-### 4. Professional Documentation
-- This `README.md` has been rewritten to reflect the specific project goals, technical implementation, and developer contributions, replacing the default boilerplate.
-
----
-
-## 🛠 Technical Setup & Development
-
-### Local Environment
-1. **Install Dependencies:**
-   ```bash
-   npm install
+**GitHub Repository:** [https://github.com/behicnuman/mis233-behicnumanplugin-panel](https://github.com/behicnuman/mis233-behicnumanplugin-panel)
