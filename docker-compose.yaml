@@ -1,5 +1,6 @@
 services:
   grafana:
+    container_name: mis233-behicnumanplugin-panel
     extends:
       file: .config/docker-compose-base.yaml
       service: grafana

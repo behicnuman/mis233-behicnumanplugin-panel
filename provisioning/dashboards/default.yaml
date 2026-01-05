@@ -1,7 +1,7 @@
 apiVersion: 1
 
 providers:
-  - name: 'behic-kaan-plugin'
+  - name: 'behicnuman-plugin'
     type: file
     options:
       path: /etc/grafana/provisioning/dashboards

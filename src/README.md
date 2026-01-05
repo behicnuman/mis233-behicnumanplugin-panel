@@ -1,50 +1,34 @@
-<!-- This README file is going to be the one displayed on the Grafana.com website for your plugin. Uncomment and replace the content here before publishing.
+# MIS 233 Final Project: Custom Interactive Grafana Panel
+**Developer:** Behic Numan Oruc (Individual Submission)
 
-Remove any remaining comments before publishing as these may be displayed on Grafana.com -->
+## 1. Project Overview
+This plugin is an individually developed Grafana panel designed to display developer identity and live query data with interactive UI elements. It fulfills all mandatory requirements for the MIS 233 course and incorporates multiple bonus features for enhanced user experience.
 
-# Behic-Kaan-Plugin
+## 2. Implemented Features
 
-<!-- To help maximize the impact of your README and improve usability for users, we propose the following loose structure:
+### Mandatory Requirements (Pass Criteria)
+* **Successful Build & Load:** The plugin builds without errors and loads correctly within the Grafana environment.
+* **Student Identity:** Displays "Developed by Behic Numan Oruc" clearly in the UI.
 
-**BEFORE YOU BEGIN**
-- Ensure all links are absolute URLs so that they will work when the README is displayed within Grafana and Grafana.com
-- Be inspired ✨
-  - [grafana-polystat-panel](https://github.com/grafana/grafana-polystat-panel)
-  - [volkovlabs-variable-panel](https://github.com/volkovlabs/volkovlabs-variable-panel)
+### Bonus Features (UI/UX & Functionality)
+* **Dynamic Panel Configuration:**
+    * **Developer Name Color:** A custom Color Picker in the side menu allows users to change the name's color.
+    * **Circle Opacity Slider:** A slider input to adjust the transparency of the central SVG element.
+* **Simple Interactivity:**
+    * **Click Action:** The central circle changes color (between primary and warning states) when clicked.
+    * **Hover Effects:** Smooth scaling and brightness transition when the mouse hovers over the interactive elements.
+* **Real Data Rendering:**
+    * **Live Query Integration:** The panel displays the latest value from a connected Grafana data source (e.g., TestData DB).
+    * **Series Counter:** A dynamic counter that displays the number of active data streams, with adjustable font sizes (Small, Medium, Large).
 
-**ADD SOME BADGES**
+## 3. Technical Implementation
+* **Framework:** React with Grafana UI Toolkit.
+* **Styling:** Emotion CSS for responsive design and layout.
+* **Provisioning:** Custom dashboard JSON included for instant deployment with the plugin pre-configured.
 
-Badges convey useful information at a glance for users whether in the Catalog or viewing the source code. You can use the generator on [Shields.io](https://shields.io/badges/dynamic-json-badge) together with the Grafana.com API
-to create dynamic badges that update automatically when you publish a new version to the marketplace.
-
-- For the URL parameter use `https://grafana.com/api/plugins/your-plugin-id`.
-- Example queries:
-  - Downloads: `$.downloads`
-  - Catalog Version: `$.version`
-  - Grafana Dependency: `$.grafanaDependency`
-  - Signature Type: `$.versionSignatureType`
-- Optionally, for the logo parameter use `grafana`.
-
-Full example: ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?logo=grafana&query=$.version&url=https://grafana.com/api/plugins/grafana-polystat-panel&label=Marketplace&prefix=v&color=F47A20)
-
-Consider other [badges](https://shields.io/badges) as you feel appropriate for your project.
-
-## Overview / Introduction
-Provide one or more paragraphs as an introduction to your plugin to help users understand why they should use it.
-
-Consider including screenshots:
-- in [plugin.json](https://grafana.com/developers/plugin-tools/reference/plugin-json#info) include them as relative links.
-- in the README ensure they are absolute URLs.
-
-## Requirements
-List any requirements or dependencies they may need to run the plugin.
-
-## Getting Started
-Provide a quick start on how to configure and use the plugin.
-
-## Documentation
-If your project has dedicated documentation available for users, provide links here. For help in following Grafana's style recommendations for technical documentation, refer to our [Writer's Toolkit](https://grafana.com/docs/writers-toolkit/).
-
-## Contributing
-Do you want folks to contribute to the plugin or provide feedback through specific means? If so, tell them how!
--->
+## 4. Installation & Setup
+1.  Navigate to the plugin folder: `cd /plugins/mis233-behicnumanplugin-panel`
+2.  Install dependencies: `npm install`
+3.  Build the plugin: `npm run build`
+4.  Run environment via Docker: `docker-compose up -d`
+5.  Access Grafana: `http://localhost:3000` (Login: admin / admin)

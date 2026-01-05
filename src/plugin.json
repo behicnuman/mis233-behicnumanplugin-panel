@@ -1,22 +1,28 @@
 {
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
-  "name": "Behic-Kaan-Plugin",
-  "id": "mis233-behickaanplugin-panel",
+  "name": "Behic Numan Oruc Custom Panel",
+  "id": "mis233-behicnumanplugin-panel",
   "info": {
-    "keywords": ["panel"],
-    "description": "",
+    "keywords": ["panel", "mis233", "interactive"],
+    "description": "Individually developed interactive panel for MIS 233 Final Project featuring custom UI controls and real-time data rendering.",
     "author": {
-      "name": "Mis233"
+      "name": "Behic Numan Oruc",
+      "url": ""
     },
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"
     },
-    "links": [],
+    "links": [
+      {
+        "name": "Project Documentation",
+        "url": "README.md"
+      }
+    ],
     "screenshots": [],
-    "version": "%VERSION%",
-    "updated": "%TODAY%"
+    "version": "1.0.0",
+    "updated": "2026-01-05"
   },
   "dependencies": {
     "grafanaDependency": ">=11.6.0",

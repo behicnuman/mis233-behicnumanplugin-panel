@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PanelProps } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from '@emotion/css';
@@ -10,125 +10,107 @@ interface Props extends PanelProps<SimpleOptions> {}
 const getStyles = () => {
   return {
     wrapper: css`
-      font-family: 'Inter', 'Open Sans', Helvetica, Arial, sans-serif;
       position: relative;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-    `,
-    svg: css`
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    `,
-    textBox: css`
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      padding: 8px;
-      background: rgba(0, 0, 0, 0.3); /* Okunabilirliği artırmak için hafif arka plan */
-      border-radius: 4px;
-      color: white;
-      z-index: 5;
+      justify-content: center;
+      transition: all 0.3s ease;
     `,
     nameBox: css`
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
+      top: 20px;
       text-align: center;
       z-index: 10;
-      pointer-events: none;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.2);
+      padding: 10px;
+      border-radius: 8px;
     `,
+    interactiveCircle: css`
+      cursor: pointer;
+      transition: all 0.3s ease;
+      &:hover {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+      }
+    `,
+    dataDisplay: css`
+      z-index: 5;
+      text-align: center;
+      font-weight: bold;
+      pointer-events: none;
+    `,
+    counterContainer: css`
+      margin-top: 10px;
+      padding: 4px 8px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 4px;
+      font-weight: bold;
+    `
   };
 };
 
-export const SimplePanel: React.FC<Props> = ({
-  options,
-  data,
-  width,
-  height,
-  fieldConfig,
-  id,
-}) => {
+export const SimplePanel: React.FC<Props> = ({ options, data, width, height, fieldConfig, id }) => {
   const theme = useTheme2();
   const styles = useStyles2(getStyles);
+  const [isClicked, setIsClicked] = useState(false);
 
+  // Veri gelmediğinde sadece isminin göründüğü bir ekran döndürür (Mandatory requirement koruması)
   if (data.series.length === 0) {
     return (
-      <PanelDataErrorView
-        fieldConfig={fieldConfig}
-        panelId={id}
-        data={data}
-        needsStringField
-      />
+      <div className={cx(styles.wrapper, css`width: ${width}px; height: ${height}px;`)}>
+        <div className={styles.nameBox}>
+           <div style={{ color: options.nameColor, fontSize: '16px', fontWeight: 'bold' }}>
+              Developed by Behic Numan Oruc
+           </div>
+           <div style={{ color: theme.colors.text.secondary, fontSize: '11px' }}>Waiting for Data Query...</div>
+        </div>
+        <PanelDataErrorView fieldConfig={fieldConfig} panelId={id} data={data} />
+      </div>
     );
   }
 
-  // Bonus 2: Dinamik Boyutlandırma Mantığı
-  const getFontSize = (size: string) => {
-    switch (size) {
-      case 'sm': return '12px';
-      case 'md': return '18px';
-      case 'lg': return '24px';
-      default: return '14px';
-    }
-  };
+  // Bonus: Gerçek veriden son değeri çekme
+  const lastValue = data.series[0].fields[1]?.state?.lastStringValue || data.series[0].fields[1]?.values.get(data.series[0].fields[1].values.length - 1) || "0";
 
   return (
-    <div
-      className={cx(
-        styles.wrapper,
-        css`
-          width: ${width}px;
-          height: ${height}px;
-        `
-      )}
-    >
-      {/* DEVELOPER BILGISI */}
+    <div className={cx(styles.wrapper, css`width: ${width}px; height: ${height}px;`)}>
+      
+      {/* MANDATORY: Student Name + Configuration Bonus */}
       <div className={styles.nameBox}>
-        <h3 style={{ margin: 0 }}>Behic Numan Oruc & Kaan Gunal</h3>
-        <p style={{ margin: '5px 0 0 0', opacity: 0.8 }}>MIS 233 Final Project</p>
-      </div>
-
-      {/* ARKA PLAN GRAFIK */}
-      <svg
-        className={styles.svg}
-        width={width}
-        height={height}
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox={`-${width / 2} -${height / 2} ${width} ${height}`}
-      >
-        <circle
-          data-testid="simple-panel-circle"
-          style={{ fill: theme.colors.primary.main, opacity: 0.6 }}
-          r={Math.min(width, height) / 3} // Dinamik yarıçap
-        />
-      </svg>
-
-      {/* ALT BILGI VE BONUS GOSTERIMI */}
-      <div className={styles.textBox}>
-        {/* Bonus 1 & 2: Toggle kontrolü ve Dinamik Boyut */}
+        <div style={{ color: options.nameColor, fontSize: '16px', fontWeight: 'bold', transition: 'color 0.3s ease' }}>
+          Developed by Behic Numan Oruc
+        </div>
+        
+        {/* BONUS: Series Counter - Veri gelince burada görünecek */}
         {options.showSeriesCount && (
-          <div 
-            data-testid="simple-panel-series-counter"
-            style={{ 
-              fontSize: getFontSize(options.seriesCountSize),
-              fontWeight: 'bold',
-              color: theme.colors.secondary.main 
-            }}
-          >
+          <div className={styles.counterContainer} style={{ 
+            fontSize: options.seriesCountSize === 'sm' ? '12px' : options.seriesCountSize === 'md' ? '16px' : '20px',
+            color: theme.colors.secondary.main 
+          }}>
             Series Count: {data.series.length}
           </div>
         )}
-        <div style={{ fontSize: '11px', opacity: 0.7, marginTop: '4px' }}>
-          Config Value: {options.text}
-        </div>
       </div>
+
+      {/* BONUS: Data Rendering */}
+      <div className={styles.dataDisplay}>
+        <div style={{ fontSize: '32px', color: theme.colors.text.primary }}>{lastValue}</div>
+        <div style={{ fontSize: '12px', opacity: 0.7 }}>Live Query Result</div>
+      </div>
+
+      {/* BONUS: Interactivity & Configuration */}
+      <svg width={width} height={height} style={{ position: 'absolute' }} viewBox={`0 0 ${width} ${height}`}>
+        <circle
+          className={styles.interactiveCircle}
+          cx={width / 2}
+          cy={height / 2}
+          r={Math.min(width, height) / 4}
+          fill={isClicked ? theme.colors.warning.main : theme.colors.primary.main}
+          onClick={() => setIsClicked(!isClicked)}
+          opacity={options.circleOpacity}
+        />
+      </svg>
     </div>
   );
 };
