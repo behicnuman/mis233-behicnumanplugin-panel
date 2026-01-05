@@ -1,5 +1,5 @@
 # MIS 233 Final Project: Custom Interactive Grafana Panel
-**Developer:** Behic Numan Oruc (Individual Submission)
+**Developer:** Behic Numan Oruc 
 
 ## 1. Project Overview
 This plugin is an individually developed Grafana panel designed to display developer identity and live query data with interactive UI elements. It fulfills all mandatory requirements for the MIS 233 course and incorporates multiple bonus features for enhanced user experience.
